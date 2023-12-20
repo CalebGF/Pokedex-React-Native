@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { getPokemonsApi, getPokemonDetailsByUrlApi } from '../api/pokemon'
 import PokemonList from '../components/PokemonList'
@@ -30,8 +29,9 @@ const Pokedex = () => {
         pokemonsArray.push({
           id: pokemonDetail.id,
           name: pokemonDetail.name,
-          type: pokemonDetail.types[0].type.name,
+          type: pokemonDetail.types,
           order: pokemonDetail.order,
+          stats: pokemonDetail.stats,
           image: pokemonDetail.sprites.other["official-artwork"].front_default
         })
       }
@@ -43,9 +43,13 @@ const Pokedex = () => {
   }
 
   return (
-    <View>
-      <PokemonList pokemons={pokemons} loadPokemons={loadPokemons} isNext={nextUrl}></PokemonList>
-    </View>
+    <>
+      <PokemonList 
+        pokemons={pokemons} 
+        loadPokemons={loadPokemons} 
+        isNext={nextUrl}>
+      </PokemonList>
+    </>
   )
 }
 
